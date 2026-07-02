@@ -1,0 +1,46 @@
+package com.library.repository;
+
+public class BookRepository {
+
+    public void getBookDetails() {
+        System.out.println("Fetching book details from repository");
+    }
+}
+package com.library.service;
+
+import com.library.repository.BookRepository;
+
+public class BookService {
+
+    private BookRepository bookRepository;
+
+    // Setter Injection
+    public void setBookRepository(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
+
+    public void displayBook() {
+        bookRepository.getBookDetails();
+    }
+}
+
+package com.library;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.library.service.BookService;
+
+public class LibraryManagementApplication {
+
+    public static void main(String[] args) {
+
+        ApplicationContext context =
+                new ClassPathXmlApplicationContext("applicationContext.xml");
+
+        BookService service =
+                (BookService) context.getBean("bookService");
+
+        service.displayBook();
+    }
+}
